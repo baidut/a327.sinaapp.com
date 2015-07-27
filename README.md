@@ -1,2 +1,1 @@
-# http-dlut.sinaapp.com
-dut helper
+wechat-2.0.27
