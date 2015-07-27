@@ -18,24 +18,30 @@ require_once(CORE_PATH.'php_simple_ui.php');
 // 很多属性，后期从数据库中获取
 // 11级
 
-define('PUB_URL', 'pub.php?name=');
+define('PUB_URL', 'pub.php?name='); 
 
 $studs = array(
-'Baicheng_Xin/辛柏成'=> PUB_URL.'researcher/2046203244_Baicheng_Xin',
-'Bingjie_Han/韩冰杰' => PUB_URL.'researcher/2046040485_Bingjie_Han',
-'Chengzhou_Tang/唐骋洲' => PUB_URL.'researcher/2046038085_Chengzhou_Tang',
-'Jianbo_Jiao/焦剑波' => PUB_URL.'profile/Jianbo_Jiao/contributions',//'2063167891_Jianbo_Jiao',
-'Jianlong_Zhang/张建龙' => PUB_URL.'researcher/2049677699_Jianlong_Zhang',
-'Jie_Wan/万杰'=> PUB_URL.'researcher/2045803101_Jie_Wan',
-'Lei_Zhang/张雷'=> PUB_URL.'profile/Lei_Zhang120/contributions',
-'Long_Zhao/赵龙'=> PUB_URL.'researcher/2046142641_Long_Zhao',
-'Qinshui_Chen/陈钦水'=> PUB_URL.'researcher/2049611613_Qinshui_Chen',
-'Xufeng_Li/李旭峰' => PUB_URL.'researcher/2059813588_Xufeng_Li',
-'Yang_Zhao/赵洋' => PUB_URL.'researcher/2077987018_Yang_Zhao',
-'Zhenyu_Wang/王振宇' => PUB_URL.'researcher/2045936206_Zhenyu_Wang',
-'Zhongxin_Liu/刘中欣'=> PUB_URL.'researcher/2049712533_Zhongxin_Liu',
-'Zhengguang_Lv/吕正光'=> PUB_URL.'profile/Zhengguang_Lv/contributions',
+'Baicheng_Xin/辛柏成'=> 'researcher/2046203244_Baicheng_Xin',
+'Bingjie_Han/韩冰杰' => 'researcher/2046040485_Bingjie_Han',
+'Chengzhou_Tang/唐骋洲' => 'researcher/2046038085_Chengzhou_Tang',
+'Jianbo_Jiao/焦剑波' => 'profile/Jianbo_Jiao/contributions',//'2063167891_Jianbo_Jiao',
+'Jianlong_Zhang/张建龙' => 'researcher/2049677699_Jianlong_Zhang',
+'Jie_Wan/万杰'=> 'researcher/2045803101_Jie_Wan',
+'Lei_Zhang/张雷'=> 'profile/Lei_Zhang120/contributions',
+'Long_Zhao/赵龙'=> 'researcher/2046142641_Long_Zhao',
+'Qinshui_Chen/陈钦水'=> 'researcher/2049611613_Qinshui_Chen',
+'Xufeng_Li/李旭峰' => 'researcher/2059813588_Xufeng_Li',
+'Yang_Zhao/赵洋' => 'researcher/2077987018_Yang_Zhao',
+'Zhenyu_Wang/王振宇' => 'researcher/2045936206_Zhenyu_Wang',
+'Zhongxin_Liu/刘中欣'=> 'researcher/2049712533_Zhongxin_Liu',
+'Zhengguang_Lv/吕正光'=> 'profile/Zhengguang_Lv/contributions',
 );
+
+// 添加编码
+foreach($studs as $key => $stud){
+	$studs[$key] = PUB_URL.urlencode($stud); // 没必要加编码
+}
+
 // 允许重定向 无法解决
 
 // 未注册用户可以正确得到，注册用户会进行重定向，需要转入pub否则

@@ -59,16 +59,15 @@ class Spider{
     Output:     web page content
 \*======================================================================*/
     function fetch($url){
-        curl_setopt($this-> ch,CURLOPT_COOKIE,          "./cookie.txt"); 
-        curl_setopt($this-> ch,CURLOPT_FOLLOWLOCATION,  true);
-		
 		$opt = array(
+			CURLOPT_COOKIE  => "./cookie.txt",
+			CURLOPT_FOLLOWLOCATION  => true,
             CURLOPT_URL     => $url,
             CURLOPT_HEADER  => 0,
             // CURLOPT_POST    => 1,
             // CURLOPT_POSTFIELDS      => (array)$data,
             CURLOPT_RETURNTRANSFER  => 1,
-            // CURLOPT_TIMEOUT         => $timeout,
+            CURLOPT_TIMEOUT         => 120, //$timeout, 120s 2min
             );
 		// 解决https下的抓取问题
 		$ssl = substr($url, 0, 8) == "https://" ? TRUE : FALSE;
@@ -82,7 +81,11 @@ class Spider{
         $output = curl_exec($this-> ch); // 防止失败后覆盖掉上次结果
 
         if($output)$this-> html = $output;
-        else throw new CurlException($this-> error = curl_error($this-> ch));
+        else {
+			echo curl_error($this-> ch);
+			throw new CurlException($this-> error = curl_error($this-> ch));
+			return null;
+		}
         return $output;
     }
 /*======================================================================*\

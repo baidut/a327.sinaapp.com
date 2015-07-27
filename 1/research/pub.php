@@ -3,12 +3,13 @@ header("Content-type:text/html;charset=utf-8");
 
 // 待解决：摘要显示不全问题，需要追加<p>分段 JQ自动分段特性考察
 
-$name = $_GET['name'];
+$name = urldecode($_GET['name']);
 
 // 模板容易失效
 
 // echo 'hello'.$name;
-$url = 'https://www.researchgate.net/'. $name;
+// 改为走http就好用了SAE有诸多限制
+$url = 'http://www.researchgate.net/'. $name;
 
 // 载入爬虫库
 define('CORE_PATH','../core/');
@@ -19,7 +20,13 @@ set_time_limit(0);
 $sp = new Spider;
 // echo $sp->test();return;
 // echo $sp->fetch($url);return;
-$pubs = $sp->fetch_list($url, 'c-list');
+// $pubs = $sp->fetch_list($url, 'c-list');
+try {   
+	$pubs = $sp->fetch_list($url, 'c-list');
+} catch (CurlException $e) {
+	print $e->getMessage(); 
+	exit();// 没用，没有抓住
+}
 // print_r($pubs);return;
 
 // 下面输出数据 提供链接 用php_simple_ui 有气泡
@@ -37,9 +44,9 @@ foreach($pubs as $key => $pub){
 // echo $data[1]['title'];return;
 
 require_once(CORE_PATH.'php_simple_ui.php');
-$list = new ui_JMListView(array($data), 'Chengzhou_Tang');// 注意这里array($data)
+$list = new ui_JMListView(array($data));// 注意这里array($data)
 $list->addFilter('搜索');
-$page = new ui_JMPage('论文',array($list));
+$page = new ui_JMPage($name ,array($list));
 $ui = new ui_jQueryMobile($page);
 
 echo $ui;
