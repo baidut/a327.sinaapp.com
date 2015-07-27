@@ -8,7 +8,7 @@ $name = $_GET['name'];
 // 模板容易失效
 
 // echo 'hello'.$name;
-$url = 'https://www.researchgate.net/researcher/'. $name;
+$url = 'https://www.researchgate.net/'. $name;
 
 // 载入爬虫库
 define('CORE_PATH','../core/');

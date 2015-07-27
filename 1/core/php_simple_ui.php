@@ -358,7 +358,14 @@ class ui_JMListView extends ui_Dom{
                         );
                 }
             }
-			else $this->appendText('<li>'.$value.'</li>');
+			
+			else if (is_integer($key)){
+				$this->appendText('<li>'.$value.'</li>');
+			}
+			else {
+				// 键值是title，内容是link
+				$this->appendText('<li>'."<a href='$value'>".$key.'</a>'.'</li>');
+			}
 		}
 	}
 	function appendData($data,$title=''){
