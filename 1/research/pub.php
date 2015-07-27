@@ -28,9 +28,9 @@ $pubs = $sp->fetch_list($url, 'c-list');
 // 每一篇
 // $data = array(); // 初始化为一维数组则出问题
 foreach($pubs as $key => $pub){
-	$data[$key]['title'] = $pub['publication-type'] . $pub['publication-title js-publication-title'];
+	$data[$key]['title'] = (strcmp(substr($pub['publication-type'], 0, 7 ), 'Article')?'[C]':'[J]') .' '. $pub['publication-title js-publication-title'];
 	$data[$key]['subtitle'] = $pub['details'];
-	$data[$key]['content'] = substr($pub['full'], 16);
+	if(isset($pub['full'])) $data[$key]['content'] = substr($pub['full'], 16);
 	$data[$key]['aside'] = $pub['authors'];
 }
 // print_r($data);return;

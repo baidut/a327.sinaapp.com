@@ -351,9 +351,9 @@ class ui_JMListView extends ui_Dom{
                     $this->appendText('<li><a href="'
                         .(isset($value['href'])? $value['href']:'#')
                         .'">'
-                        .(isset($value['title'])? '<h2>'.$value['title'].'</h2>':'')
+                        .(isset($value['title'])? '<br><h2 >'.$value['title'].'</h2>':'') // style="white-space:pre-wrap;"
                         .(isset($value['subtitle'])? '<p><b>'.$value['subtitle'].'</b></p>':'')
-                        .(isset($value['content'])? '<p>'.$value['content'].'</p>':'')
+                        .(isset($value['content'])? '<p style="white-space:pre-wrap;">'.$value['content'].'</p>':'')
                         .(isset($value['aside'])? '<p class="ui-li-aside">'.$value['aside'].'</p>':'')
                         .'</a></li>'
                         );
