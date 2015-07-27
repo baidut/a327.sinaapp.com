@@ -316,11 +316,11 @@ class ui_JMPage extends ui_Dom{
 // 自动追加计数气泡
 // 支持拆分按钮，也可在新闻页面提供原网址链接
 class ui_JMListView extends ui_Dom{
-	function __construct($data,$order=false,$data_inset=false) {
+	function __construct($data=null,$order=false,$data_inset=false) {
         parent::__construct(($order)?'ol':'ul');
         $this->attr('data-role','listview');
         $this->attr('data-inset',$data_inset?'true':'false');
-        $this->appendData($data);
+        if($data)$this->appendData($data);
         // if($id!='')$this->attr('id',$id);
     }
     // 数据可视化 $array 转为 list
@@ -336,7 +336,8 @@ class ui_JMListView extends ui_Dom{
      * @param string $title as list-divider
      * @todo  howtto remove the count, change ui
      */
-	function appendList($data,$title=''){
+	 // 添加一组数据
+	function appendGroup($data,$title=''){
 		// 自动追加计数气泡
 		if($title)$this->appendText('<li data-role="list-divider">'.$title.'<span class="ui-li-count">'.count($data).'</span></li>');
 		
@@ -367,10 +368,11 @@ class ui_JMListView extends ui_Dom{
 				$this->appendText('<li>'."<a href='$value'>".$key.'</a>'.'</li>');
 			}
 		}
+		return $this;
 	}
 	function appendData($data,$title=''){
 		foreach ($data as $key => $value) {
-			$this->appendList($value,$key);
+			$this->appendGroup($value,$key);
 		}
 		return $this;
 	}
@@ -378,6 +380,19 @@ class ui_JMListView extends ui_Dom{
 	function addFilter($placeholder=''){
 		$this->attr('data-filter','true');
 		if($placeholder!='')$this->attr('data-filter-placeholder',$placeholder);
+		return $this;
+	}
+	// 添加一个自动按照首字母分割的通讯录列表
+	// 通过链式操作也可实现
+	function appendList($data){
+		$this->appendGroup($data);
+		$this->attr('data-autodividers', 'true');
+		return $this;
+	}
+	function addDividers(){
+		// 添加智能解析中文
+		$this->attr('data-autodividers', 'true');
+		return $this;
 	}
 }
 

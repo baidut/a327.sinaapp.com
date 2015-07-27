@@ -2,7 +2,7 @@
 /vendor
 sftp-config.json
 composer.lock
-index.php
+# index.php
 getcode.php
 showlink.php
 *.jpg
